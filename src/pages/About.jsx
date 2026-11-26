@@ -27,7 +27,7 @@ export default function About() {
       <section className="block">
         <div className="container about-split">
           <div className="about-photo">
-            <img src="/img/about.webp" alt="The Clean N Clear team" loading="lazy" />
+            <img src="/img/about.webp" alt="The Clean N Clear team in our store" loading="lazy" />
           </div>
           <div className="about-copy">
             <p className="about-kicker">Who we are</p>

@@ -207,7 +207,7 @@
 
 /* ---------- about ---------- */
 .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-.about-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; box-shadow: var(--shadow); }
+.about-photo img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 22px; box-shadow: var(--shadow); }
 .about-kicker { margin-bottom: 8px; color: var(--green); font-size: 12.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
 .about-copy h2 { font-size: clamp(28px, 3vw, 40px); }
 .about-copy > p:not(.about-kicker) { margin-top: 14px; font-size: 15.5px; }
