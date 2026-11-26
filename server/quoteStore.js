@@ -31,6 +31,14 @@ function limited(key, max = 10, windowMs = 10 * 60 * 1000) {
   return false;
 }
 
+// Blob credentials, also when the store was connected with a custom env-var prefix
+export function blobEnv(env) {
+  const keys = Object.keys(env);
+  const tokenKey = env.BLOB_READ_WRITE_TOKEN ? "BLOB_READ_WRITE_TOKEN" : keys.find((k) => /_READ_WRITE_TOKEN$/.test(k));
+  const storeKey = env.BLOB_STORE_ID ? "BLOB_STORE_ID" : keys.find((k) => /BLOB.*_STORE_ID$|_BLOB_STORE_ID$/.test(k));
+  return { token: tokenKey ? env[tokenKey] : "", storeId: storeKey ? env[storeKey] : "", tokenKey, storeKey };
+}
+
 export async function storeQuote({ ref, pdfBase64 }, { env, origin, ip, oidcToken }) {
   if (!/^[A-Z]{2,5}-\d{6}-\d{4}$/.test(String(ref || ""))) throw new StoreError(400, "Invalid quote reference");
   if (limited(ip || "anon")) throw new StoreError(429, "Too many quotations. Please try again in a few minutes.");
@@ -44,11 +52,12 @@ export async function storeQuote({ ref, pdfBase64 }, { env, origin, ip, oidcToke
 
   // Vercel Blob: older stores give BLOB_READ_WRITE_TOKEN; newer ones give BLOB_STORE_ID
   // and sign in with the deployment's OIDC token (sent by Vercel on each request).
-  if (env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID) {
+  const creds = blobEnv(env);
+  if (creds.token || creds.storeId) {
     const { put } = await import("@vercel/blob");
-    const auth = env.BLOB_READ_WRITE_TOKEN
-      ? { token: env.BLOB_READ_WRITE_TOKEN }
-      : { storeId: env.BLOB_STORE_ID, ...(oidcToken ? { oidcToken } : {}) };
+    const auth = creds.token
+      ? { token: creds.token }
+      : { storeId: creds.storeId, ...(oidcToken ? { oidcToken } : {}) };
     try {
       const blob = await put(`quotes/${name}`, pdf, {
         access: "public",
@@ -81,8 +90,11 @@ export async function handleStoreQuote(req, res, env) {
   };
   // health check: which storage setting is visible (never the values)
   if (req.method === "GET") {
-    const storage = env.BLOB_READ_WRITE_TOKEN ? "blob-token" : env.BLOB_STORE_ID ? "blob-store-id" : env.VERCEL ? "none" : "local";
-    return reply(200, { storage });
+    const c = blobEnv(env);
+    const storage = c.token ? "blob-token" : c.storeId ? "blob-store-id" : env.VERCEL ? "none" : "local";
+    // names only (never values) so the setup can be checked from outside
+    const blobKeys = Object.keys(env).filter((k) => /BLOB|READ_WRITE|STORE_ID/.test(k));
+    return reply(200, { storage, using: c.tokenKey || c.storeKey || null, blobKeys, env: env.VERCEL_ENV || null });
   }
   if (req.method !== "POST") return reply(405, { error: "Method not allowed" });
 
