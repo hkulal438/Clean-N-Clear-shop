@@ -17,6 +17,9 @@ import { SHOP } from "../config";
 
 const PAGE = 24;
 
+// brands shown with a photo instead of a logo
+const PHOTO_BRANDS = new Set(["cleaning-tools", "dustbins"]);
+
 const SORTS = {
   top: { label: "Recommended", fn: (a, b) => (b.top ? 1 : 0) - (a.top ? 1 : 0) },
   name: { label: "Name: A to Z", fn: (a, b) => a.name.localeCompare(b.name) },
@@ -71,7 +74,7 @@ export default function Shop() {
     <div className="shop container">
       {b && (
         <div className="shop-brand">
-          <span className="shop-brand-logo"><img src={b.logo} alt={`${b.name} logo`} /></span>
+          <span className={`shop-brand-logo ${PHOTO_BRANDS.has(b.id) ? "shop-brand-logo--photo" : ""}`}><img src={b.logo} alt={`${b.name}`} /></span>
           <p>{b.about}</p>
         </div>
       )}
