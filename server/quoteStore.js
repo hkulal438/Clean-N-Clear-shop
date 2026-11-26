@@ -31,7 +31,7 @@ function limited(key, max = 10, windowMs = 10 * 60 * 1000) {
   return false;
 }
 
-export async function storeQuote({ ref, pdfBase64 }, { env, origin, ip }) {
+export async function storeQuote({ ref, pdfBase64 }, { env, origin, ip, oidcToken }) {
   if (!/^[A-Z]{2,5}-\d{6}-\d{4}$/.test(String(ref || ""))) throw new StoreError(400, "Invalid quote reference");
   if (limited(ip || "anon")) throw new StoreError(429, "Too many quotations. Please try again in a few minutes.");
 
@@ -42,15 +42,25 @@ export async function storeQuote({ ref, pdfBase64 }, { env, origin, ip }) {
   // hard-to-guess file name: the PDF holds the customer's contact details
   const name = `Clean-N-Clear-Quotation-${ref}-${randomBytes(6).toString("hex")}.pdf`;
 
-  if (env.BLOB_READ_WRITE_TOKEN) {
+  // Vercel Blob: older stores give BLOB_READ_WRITE_TOKEN; newer ones give BLOB_STORE_ID
+  // and sign in with the deployment's OIDC token (sent by Vercel on each request).
+  if (env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID) {
     const { put } = await import("@vercel/blob");
-    const blob = await put(`quotes/${name}`, pdf, {
-      access: "public",
-      contentType: "application/pdf",
-      addRandomSuffix: true,
-      token: env.BLOB_READ_WRITE_TOKEN,
-    });
-    return { url: blob.url };
+    const auth = env.BLOB_READ_WRITE_TOKEN
+      ? { token: env.BLOB_READ_WRITE_TOKEN }
+      : { storeId: env.BLOB_STORE_ID, ...(oidcToken ? { oidcToken } : {}) };
+    try {
+      const blob = await put(`quotes/${name}`, pdf, {
+        access: "public",
+        contentType: "application/pdf",
+        addRandomSuffix: true,
+        ...auth,
+      });
+      return { url: blob.url };
+    } catch (e) {
+      console.error("Blob upload failed", e);
+      throw new StoreError(502, `Quote storage error: ${String(e?.message || e).slice(0, 160)}`);
+    }
   }
 
   if (env.VERCEL) throw new StoreError(503, "Quote storage is not connected yet");
@@ -69,6 +79,11 @@ export async function handleStoreQuote(req, res, env) {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(data));
   };
+  // health check: which storage setting is visible (never the values)
+  if (req.method === "GET") {
+    const storage = env.BLOB_READ_WRITE_TOKEN ? "blob-token" : env.BLOB_STORE_ID ? "blob-store-id" : env.VERCEL ? "none" : "local";
+    return reply(200, { storage });
+  }
   if (req.method !== "POST") return reply(405, { error: "Method not allowed" });
 
   try {
@@ -86,7 +101,8 @@ export async function handleStoreQuote(req, res, env) {
     const proto = req.headers["x-forwarded-proto"] || "http";
     const origin = `${proto}://${req.headers.host}`;
     const ip = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "").split(",")[0].trim();
-    return reply(200, await storeQuote(payload, { env, origin, ip }));
+    const oidcToken = req.headers["x-vercel-oidc-token"] || env.VERCEL_OIDC_TOKEN || "";
+    return reply(200, await storeQuote(payload, { env, origin, ip, oidcToken }));
   } catch (e) {
     if (e instanceof StoreError) return reply(e.status, { error: e.message });
     console.error("storeQuote failed", e);
