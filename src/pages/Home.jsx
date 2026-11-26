@@ -15,6 +15,7 @@ import {
   featured,
   CATEGORY_COVER,
 } from "../data/catalog";
+import { SHOP } from "../config";
 
 // categories shown as large round cards on the home page (the rest appear as chips)
 const FEATURED_CATS = ["floor-care", "washroom", "kitchen", "glass-surface", "hand-hygiene", "air-care", "furniture-metal", "carpet-laundry", "industrial", "tools"];
@@ -31,16 +32,6 @@ const WHY_RIGHT = [
   { icon: "truck", title: "Delivery or Pickup", text: "We deliver your order anywhere, or you can pick it up from our KRR Road store." },
   { icon: "award", title: "Expert Support", text: "Housekeeping teams, hotels and hospitals trust us for regular supplies." },
 ];
-
-const WhyPoint = ({ p, side }) => (
-  <div className={`why-point why-point--${side}`}>
-    <span className="why-badge-icon"><Icon name={p.icon} size={26} stroke={1.7} /></span>
-    <div>
-      <h3>{p.title}</h3>
-      <p>{p.text}</p>
-    </div>
-  </div>
-);
 
 const SectionHead = ({ title, text, link, linkLabel }) => (
   <div className="shead">
@@ -173,44 +164,37 @@ export default function Home() {
       </section>
 
       {/* ================= WHY CLEAN N CLEAR ================= */}
-      <section className="why2 why2--cnc">
-        <span className="why3-blob why3-blob--a" aria-hidden="true" />
-        <span className="why3-blob why3-blob--b" aria-hidden="true" />
-        <div className="container">
-          <div className="why2-head">
-            <p className="why3-kicker"><Icon name="sparkle" size={14} stroke={2.2} /> Why choose us</p>
-            <h2>Why buy from <span className="why3-accent">Clean N Clear</span></h2>
-            <p>
+      <section className="whyx">
+        <div className="container whyx-grid">
+          <div className="whyx-photo">
+            <img src="/img/why-crew.webp" alt="Diversey Crew bathroom cleaner and glass cleaner" loading="lazy" />
+          </div>
+
+          <div className="whyx-copy">
+            <p className="whyx-kicker">Why choose us</p>
+            <h2>Why buy from Clean N Clear</h2>
+            <p className="whyx-lead">
               One store for professional cleaning chemicals, hygiene supplies and tools — with honest
               advice on what to use, where and how much.
             </p>
-          </div>
 
-          <div className="why2-grid">
-            <div className="why2-col">
-              {WHY_LEFT.map((p) => <WhyPoint key={p.title} p={p} side="left" />)}
-            </div>
+            <ul className="whyx-list">
+              {[...WHY_LEFT, ...WHY_RIGHT].map((p) => (
+                <li key={p.title}>
+                  <span className="whyx-ico"><Icon name={p.icon} size={22} stroke={1.8} /></span>
+                  <div>
+                    <h3>{p.title}</h3>
+                    <p>{p.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
 
-            <div className="why3-art">
-              <span className="why3-ring" aria-hidden="true" />
-              <span className="why2-bubble why2-bubble--1" aria-hidden="true" />
-              <span className="why2-bubble why2-bubble--2" aria-hidden="true" />
-              <span className="why2-bubble why2-bubble--3" aria-hidden="true" />
-              <div className="why3-frame">
-                <img src="/img/why-crew.webp" alt="Diversey Crew bathroom cleaner and glass cleaner" loading="lazy" />
-              </div>
-              <span className="why3-badge why3-badge--count">
-                <strong>{products.length}+</strong>
-                <small>products in store</small>
-              </span>
-              <span className="why3-badge why3-badge--genuine">
-                <span className="why3-badge-ico"><Icon name="shield" size={18} /></span>
-                <span><strong>100% genuine</strong><small>Diversey · Reva · Miraclean</small></span>
-              </span>
-            </div>
-
-            <div className="why2-col">
-              {WHY_RIGHT.map((p) => <WhyPoint key={p.title} p={p} side="right" />)}
+            <div className="whyx-ctas">
+              <Link to="/shop" className="btn btn-primary btn-lg">Shop now <Icon name="arrow" size={18} /></Link>
+              <a className="btn btn-outline btn-lg" href={`https://wa.me/${SHOP.whatsapp}`} target="_blank" rel="noreferrer">
+                <WhatsAppIcon size={18} /> Talk to us
+              </a>
             </div>
           </div>
         </div>
