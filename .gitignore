@@ -6,3 +6,6 @@ dist
 .vercel
 .quotes
 .claude
+
+.vercel
+.env*
