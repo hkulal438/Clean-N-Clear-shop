@@ -1,0 +1,315 @@
+/* =========================================================
+   CONSULT WITH DOCTOR  +  TRACK ORDER
+   (uses the colour tokens defined in styles.css)
+========================================================= */
+
+.consult-hero { padding: 56px 0 70px; background: #eef2fb; }
+
+.consult-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 64px;
+}
+
+.consult-photo { position: relative; }
+
+.consult-photo > img {
+  width: 100%;
+  aspect-ratio: 4 / 3.3;
+  object-fit: cover;
+  object-position: 62% 40%;
+  border-radius: 26px;
+  box-shadow: 0 34px 60px -34px rgba(7, 22, 66, 0.6);
+}
+
+.consult-seals {
+  position: absolute;
+  left: 22px;
+  bottom: -26px;
+  display: flex;
+  gap: 12px;
+}
+
+.consult-seals img {
+  width: 74px;
+  height: 74px;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--white);
+  object-fit: contain;
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.35);
+}
+
+.consult-intro .crumbs { margin-bottom: 16px; }
+.consult-intro h1 { font-size: clamp(32px, 3.6vw, 48px); }
+
+.consult-intro .consult-cred {
+  margin: 12px 0 22px;
+  color: var(--green-deep);
+  font-size: 14.5px;
+  font-weight: 400;
+}
+
+.consult-intro > p { margin-top: 12px; font-size: 15.5px; line-height: 1.8; }
+
+.consult-facts {
+  display: flex;
+  gap: 36px;
+  margin: 28px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid #d8e2d3;
+  list-style: none;
+}
+
+.consult-facts li { display: flex; flex-direction: column; }
+.consult-facts strong { color: var(--forest); font-family: var(--serif); font-size: 28px; font-weight: 600; line-height: 1.1; }
+.consult-facts span { color: var(--muted); font-size: 13px; }
+
+.consult-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+.consult-book {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 56px;
+}
+
+.consult-book-copy h2 { font-size: clamp(28px, 3vw, 38px); }
+.consult-book-copy > p { margin-top: 14px; font-size: 15.5px; line-height: 1.8; }
+
+.consult-points { display: grid; gap: 14px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 14.5px; }
+.consult-points li { display: flex; align-items: flex-start; gap: 10px; }
+.consult-points svg { flex-shrink: 0; margin-top: 3px; color: var(--green-dark); }
+
+.consult-form {
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--ivory);
+  outline: none;
+}
+
+.field select:focus { border-color: var(--green); background: var(--white); }
+.field.has-error select { border-color: #c4553f; }
+
+.mode-group { margin: 0 0 16px; padding: 0; border: 0; }
+.mode-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+.mode-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.mode-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.mode-chip:hover { border-color: var(--green); }
+.mode-chip.is-active { border-color: var(--green-dark); background: #eef1ff; color: var(--forest); font-weight: 500; }
+.mode-chip:focus-within { outline: 2px solid var(--green-dark); outline-offset: 2px; }
+
+.consult-sent { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.consult-sent h3 { font-size: 24px; }
+.consult-sent p { margin-top: 8px; }
+.consult-sent .done-actions { margin-top: 22px; }
+
+/* ---------------- TRACK ORDER ---------------- */
+
+.track-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 40px;
+  padding-top: 56px;
+  padding-bottom: 90px;
+}
+
+.track-form,
+.track-stages {
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.track-form { box-shadow: var(--shadow); }
+.track-form h2,
+.track-stages h2 { margin-bottom: 20px; font-size: 24px; }
+
+.track-help { margin-top: 14px; color: var(--muted); font-size: 13.5px; text-align: center; }
+.track-help a { color: var(--green-deep); font-weight: 500; }
+
+.track-recent { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+.track-recent h3 { margin-bottom: 10px; font-size: 17px; }
+.track-recent ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+.track-recent button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--ivory);
+  text-align: left;
+}
+
+.track-recent button:hover { border-color: var(--green); }
+.track-recent button.is-active { border-color: var(--green-dark); background: #eef1ff; }
+.track-recent span { display: flex; flex-direction: column; }
+.track-recent strong { color: var(--forest); font-weight: 500; }
+.track-recent small { color: var(--muted); font-size: 12.5px; }
+.track-recent em { color: var(--forest); font-style: normal; font-weight: 500; }
+
+.track-stages ol { margin: 0; padding: 0; list-style: none; }
+
+.track-stages li {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.track-stages li:last-child { padding-bottom: 0; }
+
+/* line joining the stages */
+.track-stages li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 46px;
+  bottom: 4px;
+  left: 21px;
+  width: 2px;
+  background: #dfe8da;
+}
+
+.track-dot {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #eef1ff;
+  color: var(--green-deep);
+}
+
+.track-stages h3 { margin-top: 2px; font-size: 18px; }
+.track-stages p { margin-top: 2px; font-size: 14px; }
+
+/* order reference on the checkout success screen */
+.checkout-done .done-ref {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 18px 0 4px;
+  padding: 14px 26px;
+  border: 1.5px dashed var(--green);
+  border-radius: 14px;
+  background: #eef1ff;
+}
+
+.done-ref strong { color: var(--forest); font-size: 22px; letter-spacing: 0.04em; }
+.done-ref span { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 980px) {
+  .consult-hero-grid,
+  .consult-book,
+  .track-grid { grid-template-columns: 1fr; gap: 48px; }
+  .consult-photo { max-width: 640px; }
+  .track-grid { gap: 24px; }
+}
+
+@media (max-width: 560px) {
+  .consult-hero { padding: 32px 0 48px; }
+  .consult-seals img { width: 60px; height: 60px; }
+  .consult-facts { gap: 22px; }
+  .consult-facts strong { font-size: 22px; }
+  .consult-ctas .btn { flex: 1 1 100%; }
+  .consult-form,
+  .track-form,
+  .track-stages { padding: 22px 18px; }
+  .track-grid { padding-top: 32px; }
+}
+
+/* =========================================================
+   PRESCRIPTION-ONLY (BHASMA) — enquire on WhatsApp
+========================================================= */
+
+.pcard-consult { display: grid; gap: 10px; }
+
+.pcard-rx {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-deep);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.pdp-consult {
+  display: flex;
+  gap: 16px;
+  margin-top: 26px;
+  padding: 24px;
+  border: 1.5px solid #c9d2ff;
+  border-radius: 18px;
+  background: #eef1ff;
+}
+
+.pdp-consult-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: #ffffff;
+}
+
+.pdp-consult h2 { font-size: 20px; }
+.pdp-consult p { margin-top: 8px; font-size: 14.5px; line-height: 1.75; }
+.pdp-consult-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+.rx-note {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding: 18px 22px;
+  border: 1.5px solid #c9d2ff;
+  border-radius: 16px;
+  background: #eef1ff;
+  color: var(--green-deep);
+}
+
+.rx-note p { display: flex; flex: 1; flex-direction: column; color: var(--text); }
+.rx-note strong { color: var(--forest); font-weight: 500; }
+.rx-note span { font-size: 14px; }
+
+@media (max-width: 760px) {
+  .rx-note { flex-wrap: wrap; }
+  .rx-note .btn { width: 100%; }
+  .pdp-consult { flex-direction: column; padding: 20px; }
+  .pdp-consult-actions .btn { flex: 1 1 100%; }
+}

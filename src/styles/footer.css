@@ -1,0 +1,280 @@
+/* =========================================================
+   FOOTER — deep forest, logo badge, link columns,
+   WhatsApp enquiry card, certification seals & legacy rings
+========================================================= */
+
+.ft {
+  position: relative;
+  overflow: hidden;
+  padding-top: 64px;
+  background-color: #06123a;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 85% 0%, rgba(8, 31, 239, 0.16), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(145, 220, 0, 0.1), transparent 40%);
+  background-size: 18px 18px, 100% 100%, 100% 100%;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14.5px;
+}
+
+.ft a { transition: color 0.2s ease; }
+.ft h3 { margin-bottom: 20px; color: #ffffff; font-family: var(--serif); font-size: 21px; font-weight: 600; }
+
+/* faint leafy branches in the corners */
+.ft-branch {
+  position: absolute;
+  width: 460px;
+  color: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.ft-branch--r { right: -80px; top: 220px; }
+.ft-branch--l { left: -120px; bottom: 40px; transform: scaleX(-1) rotate(180deg); }
+
+/* ---------------- help band ---------------- */
+
+.ft-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 34px 40px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.22), transparent 50%),
+    linear-gradient(120deg, #0619b8 0%, #081fef 55%, #2b45ff 100%);
+  box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.6);
+}
+
+.ft-cta h2 { color: #ffffff; font-size: clamp(22px, 2.4vw, 30px); }
+.ft-cta p { margin-top: 6px; color: rgba(255, 255, 255, 0.92); font-size: 15px; }
+.ft-cta-actions { display: flex; flex-shrink: 0; flex-wrap: wrap; gap: 12px; }
+.ft-cta .btn-light { color: var(--forest); }
+
+/* ---------------- main columns ---------------- */
+
+.ft-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.45fr 0.8fr 0.8fr 1.15fr;
+  gap: 48px;
+  padding-top: 64px;
+  padding-bottom: 52px;
+}
+
+.ft-logo { display: inline-flex; align-items: center; gap: 16px; }
+
+.ft-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 92px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08), 0 16px 30px -14px rgba(0, 0, 0, 0.6);
+}
+
+.ft-logo-badge img { width: 62px; height: auto; }
+
+.ft-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.ft-logo-text strong { color: #ffffff; font-family: var(--serif); font-size: 30px; font-weight: 700; }
+.ft-logo-text small { margin-top: 4px; color: var(--green); font-size: 13px; letter-spacing: 0.06em; }
+
+.ft-brand > p { max-width: 400px; margin-top: 22px; line-height: 1.8; }
+
+.ft-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.ft-more:hover { color: #ffffff; gap: 10px; }
+
+.ft-social { display: flex; gap: 10px; margin-top: 24px; }
+
+.ft-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #ffffff;
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.ft-social a:hover { background: #ffffff; color: var(--forest); transform: translateY(-2px); }
+
+.ft-col ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+.ft-col ul a {
+  position: relative;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.ft-col ul a::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0;
+  transform: translate(-4px, -50%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ft-col ul a:hover { color: #ffffff; }
+.ft-col ul a:hover::before { opacity: 1; transform: translate(0, -50%); }
+
+.ft-enq { line-height: 1.8; }
+
+.ft-wa {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 12px 18px 12px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.ft-wa:hover { background: var(--green); border-color: var(--green); }
+
+.ft-wa-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--wa);
+}
+
+.ft-wa > span:nth-child(2) { display: flex; flex: 1; flex-direction: column; line-height: 1.3; }
+.ft-wa small { color: rgba(255, 255, 255, 0.7); font-size: 12px; }
+.ft-wa strong { font-size: 16px; font-weight: 500; }
+.ft-wa:hover small { color: #ffffff; }
+.ft-wa-arrow { transition: transform 0.25s ease; }
+.ft-wa:hover .ft-wa-arrow { transform: translateX(3px); }
+
+/* ---------------- contact + certifications ---------------- */
+
+.ft-lower {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.3fr;
+  gap: 48px;
+  padding: 44px 0 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ft-contact { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.ft-contact li { display: flex; align-items: flex-start; gap: 14px; line-height: 1.6; }
+.ft-contact svg { flex-shrink: 0; margin-top: 3px; color: var(--gold); }
+.ft-contact a,
+.ft-contact li > span { display: flex; flex-direction: column; }
+.ft-contact a:hover { color: #ffffff; }
+
+.ft-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+
+.ft-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  padding: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 14px 26px -14px rgba(0, 0, 0, 0.6);
+}
+
+.ft-seal img { width: 100%; height: 100%; object-fit: contain; }
+
+/* outlined "legacy" rings */
+.ft-ring {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  padding: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.ft-ring::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(8, 31, 239, 0.7);
+  border-radius: 50%;
+}
+
+.ft-ring strong { color: #ffffff; font-family: var(--serif); font-size: 22px; line-height: 1; }
+.ft-ring small { margin-top: 4px; color: rgba(255, 255, 255, 0.75); font-size: 9.5px; line-height: 1.25; letter-spacing: 0.02em; }
+
+/* ---------------- bottom bar ---------------- */
+
+.ft-bottom { position: relative; z-index: 1; background: rgba(0, 0, 0, 0.22); }
+
+.ft-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  font-size: 13px;
+}
+
+.ft-bottom-inner a { display: inline-flex; align-items: center; gap: 6px; color: var(--gold); }
+.ft-bottom-inner a:hover { color: #ffffff; }
+
+/* ---------------- responsive ---------------- */
+
+@media (max-width: 1100px) {
+  .ft-main { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .ft-lower { grid-template-columns: 1fr; gap: 36px; }
+}
+
+@media (max-width: 760px) {
+  .ft { padding-top: 40px; }
+  .ft-cta { flex-direction: column; align-items: flex-start; padding: 26px 22px; }
+  .ft-cta-actions { width: 100%; }
+  .ft-cta-actions .btn { flex: 1 1 100%; }
+  .ft-main { grid-template-columns: 1fr 1fr; gap: 34px 20px; padding-top: 44px; }
+  .ft-brand,
+  .ft-main > .ft-col:last-child { grid-column: 1 / -1; }
+  .ft-logo-badge { width: 76px; height: 76px; }
+  .ft-logo-badge img { width: 52px; }
+  .ft-logo-text strong { font-size: 26px; }
+  .ft-badges { gap: 12px; }
+  .ft-seal,
+  .ft-ring { width: 82px; height: 82px; }
+  .ft-ring strong { font-size: 19px; }
+  .ft-bottom-inner { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .ft-branch { width: 300px; }
+}
