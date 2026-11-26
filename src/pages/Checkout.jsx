@@ -113,14 +113,16 @@ export default function Checkout() {
       if (waTab) waTab.location.href = quoteLink(text);
       return;
     }
-    if (waTab) waTab.close();
-
     // Fallback when the PDF could not be saved online.
-    // Computers can't share files into WhatsApp: save the PDF and open the Clean N Clear chat.
+    // Computers can't share files into WhatsApp: save the PDF and point the tab we opened
+    // during the click at the Clean N Clear chat (a new window.open here would be blocked).
     // Phones get two big buttons instead (open our chat, then share the PDF into it).
     if (!d.shareable) {
       downloadBlob(blob, name);
-      window.open(quoteLink(text), "_blank", "noopener");
+      if (waTab) waTab.location.href = quoteLink(text);
+      else window.open(quoteLink(text), "_blank", "noopener");
+    } else if (waTab) {
+      waTab.close();
     }
   };
 
