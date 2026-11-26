@@ -173,10 +173,13 @@ export default function Home() {
       </section>
 
       {/* ================= WHY CLEAN N CLEAR ================= */}
-      <section className="why2">
+      <section className="why2 why2--cnc">
+        <span className="why3-blob why3-blob--a" aria-hidden="true" />
+        <span className="why3-blob why3-blob--b" aria-hidden="true" />
         <div className="container">
           <div className="why2-head">
-            <h2>Why buy from Clean N Clear</h2>
+            <p className="why3-kicker"><Icon name="sparkle" size={14} stroke={2.2} /> Why choose us</p>
+            <h2>Why buy from <span className="why3-accent">Clean N Clear</span></h2>
             <p>
               One store for professional cleaning chemicals, hygiene supplies and tools — with honest
               advice on what to use, where and how much.
@@ -188,16 +191,21 @@ export default function Home() {
               {WHY_LEFT.map((p) => <WhyPoint key={p.title} p={p} side="left" />)}
             </div>
 
-            <div className="why2-art" aria-hidden="true">
-              <span className="why2-disc" />
-              <span className="why2-ring" />
-              <span className="why2-bubble why2-bubble--1" />
-              <span className="why2-bubble why2-bubble--2" />
-              <span className="why2-bubble why2-bubble--3" />
-              <img src="/img/why-product.webp" alt="" className="why2-product why2-product--cnc" loading="lazy" />
-              <span className="why2-years">
+            <div className="why3-art">
+              <span className="why3-ring" aria-hidden="true" />
+              <span className="why2-bubble why2-bubble--1" aria-hidden="true" />
+              <span className="why2-bubble why2-bubble--2" aria-hidden="true" />
+              <span className="why2-bubble why2-bubble--3" aria-hidden="true" />
+              <div className="why3-frame">
+                <img src="/img/why-crew.webp" alt="Diversey Crew bathroom cleaner and glass cleaner" loading="lazy" />
+              </div>
+              <span className="why3-badge why3-badge--count">
                 <strong>{products.length}+</strong>
                 <small>products in store</small>
+              </span>
+              <span className="why3-badge why3-badge--genuine">
+                <span className="why3-badge-ico"><Icon name="shield" size={18} /></span>
+                <span><strong>100% genuine</strong><small>Diversey · Reva · Miraclean</small></span>
               </span>
             </div>
 
