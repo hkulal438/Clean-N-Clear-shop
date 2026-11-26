@@ -69,8 +69,8 @@ export function quoteMessage({ items, subtotal, allPriced, customer, ref, pdfUrl
     `*Name:* ${customer.name}${customer.company ? ` (${customer.company})` : ""}`,
     `*Mobile:* ${customer.phone}`,
     customer.fulfil === "pickup"
-      ? `*Order type:* 🏬 STORE PICKUP — I will collect from your office`
-      : `*Order type:* 🚚 DELIVERY`,
+      ? `*Order type:* STORE PICKUP — I will collect from your office`
+      : `*Order type:* DELIVERY`,
     customer.fulfil === "pickup" ? null : `*Deliver to:* ${customer.address}, ${customer.city} – ${customer.pincode}`,
     customer.gst ? `*GSTIN:* ${customer.gst}` : null,
     customer.note ? `*Note:* ${customer.note}` : null,
@@ -80,12 +80,16 @@ export function quoteMessage({ items, subtotal, allPriced, customer, ref, pdfUrl
     "",
     allPriced ? `*Total:* ₹${money(subtotal)} (+ GST${customer.fulfil === "pickup" ? "" : " & delivery"} as applicable)` : "_Please share the best rates for the above._",
     "",
-    pdfUrl ? `📄 *Quotation PDF:* ${pdfUrl}` : "📄 PDF quotation attached.",
+    pdfUrl ? `*Quotation PDF:* ${pdfUrl}` : "PDF quotation attached.",
     "",
     "Please confirm my order. Thank you!",
   ]
     .filter((l) => l !== null)
-    .join("\n");
+    .join("\n")
+    // plain characters only, so every phone shows the message correctly
+    .replace(/[–—]/g, "-")
+    .replace(/×/g, "x")
+    .replace(/₹/g, "Rs. ");
 }
 
 // ---------------------------------------------------------

@@ -195,7 +195,7 @@ export default function Checkout() {
         ) : (
           <ol className="done-steps">
             <li>The PDF <strong>{done.name}</strong> has been downloaded.</li>
-            <li>Our WhatsApp chat ({SHOP.quoteDisplay}) opened with your order typed in — attach the PDF (📎) and press send.</li>
+            <li>Our WhatsApp chat ({SHOP.quoteDisplay}) opened with your order typed in — attach the PDF (paperclip icon) and press send.</li>
             <li>Our team replies with final rates, payment and delivery.</li>
           </ol>
         )}
